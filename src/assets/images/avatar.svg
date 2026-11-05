@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="avatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a192f"/>
+      <stop offset="50%" stop-color="#0f2b48"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+    <linearGradient id="lockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="url(#avatarBg)"/>
+  <rect x="8" y="8" width="496" height="496" rx="120" fill="none" stroke="rgba(0, 242, 254, 0.2)" stroke-width="3"/>
+
+  <!-- Center Shield -->
+  <g transform="translate(256, 230)">
+    <path d="M 0 -130 L 110 -65 L 110 50 C 110 130 0 185 0 185 C 0 185 -110 130 -110 50 L -110 -65 Z" 
+          fill="rgba(0, 242, 254, 0.08)" stroke="url(#shieldGrad)" stroke-width="8" stroke-linejoin="round"/>
+    
+    <!-- Lock Shackle -->
+    <path d="M -35 -20 C -35 -55 35 -55 35 -20 L 35 15 L -35 15 Z" fill="none" stroke="url(#shieldGrad)" stroke-width="10" stroke-linecap="round"/>
+    
+    <!-- Lock Body -->
+    <rect x="-50" y="10" width="100" height="75" rx="14" fill="url(#shieldGrad)"/>
+    <circle cx="0" cy="40" r="9" fill="#0a192f"/>
+    <path d="M 0 46 L 0 65" stroke="#0a192f" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text -->
+  <text x="256" y="450" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="34" fill="#ffffff" letter-spacing="4">
+    URBAN<tspan fill="#00f2fe">VPN</tspan>
+  </text>
+</svg>

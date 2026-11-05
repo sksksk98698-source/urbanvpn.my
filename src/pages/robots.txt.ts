@@ -3,7 +3,9 @@ import type { APIRoute } from "astro";
 
 const robotsTxt = `
 User-agent: *
+Allow: /
 Disallow: /_astro/
+Disallow: /api/
 
 Sitemap: ${siteUrl("sitemap-index.xml")}
 `.trim();

@@ -1,0 +1,118 @@
+---
+import SpeedtestDashboard from "@components/observatory/SpeedtestDashboard.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteUrl } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+import { getMeasuredAirports } from "@/data/airports";
+
+const title = "2026 机场节点实测中心：晚高峰延迟、带宽吞吐与原始测速报告";
+const measuredAirports = getMeasuredAirports();
+const description = `收录 ${measuredAirports.length} 家主流机场的晚高峰真实测速数据与原始图片报告，包含香港、日本、新加坡、美国等主流节点延迟、下载速度与丢包率对比。拒绝虚标，以真实网络可观测性数据为决策依据。`;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	name: title,
+	description: description,
+	url: siteUrl("reviews/"),
+};
+---
+
+<MainGridLayout title={title} description={description} lang="zh-CN">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+  <div class="space-y-6">
+    <!-- Header -->
+    <div class="card-base p-6 md:p-8 rounded-2xl relative overflow-hidden">
+      <div class="max-w-2xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-(--primary)/10 border border-(--primary)/20 text-(--primary) text-xs font-semibold">
+          <Icon name="material-symbols:speed-outline" class="text-sm" />
+          晚高峰 20:30 实测数据归档 · 严禁虚构
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-neutral-50 tracking-tight">
+          2026 节点性能实测中心 (Speedtest Observatory)
+        </h1>
+        <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          普通测速通常在白天闲时进行，无法反映真实拥堵状况。urbanVPN 测速实验室专注于晚高峰与大促时段的网络连通表现，对 <strong>{measuredAirports.length} 家具备完整测试记录的机场品牌</strong> 进行端到端吞吐量、延迟抖动与丢包率监测，并配套公示原始高清测速图谱。
+        </p>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between text-xs text-neutral-400 gap-2">
+        <span>测试网络环境: 500M 商业联通宽带 + Speedtest CLI / Clash Verge Rev</span>
+        <span>批次归档: 2026-08/10 周期校验</span>
+      </div>
+    </div>
+
+    <!-- Quick Jump Anchor Bar -->
+    <div class="card-base p-4 rounded-xl flex flex-wrap items-center gap-2 text-xs">
+      <span class="text-neutral-400 font-medium">快速锚点导航:</span>
+      {measuredAirports.map((a) => (
+        <a
+          href={`#${a.id}`}
+          class="px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-(--primary) hover:text-white transition font-medium text-neutral-700 dark:text-neutral-300"
+        >
+          {a.name}
+        </a>
+      ))}
+    </div>
+
+    <!-- Measured Airports Stream -->
+    <div class="space-y-8">
+      {measuredAirports.map((a) => (
+        <div id={a.id} class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-black/5 dark:border-white/10">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-(--primary) text-white font-mono">
+                  TOP {a.rank}
+                </span>
+                <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                  <a href={`/brands/${a.id}/`} class="hover:text-(--primary) transition">
+                    {a.name} · 节点吞吐性能实测报告
+                  </a>
+                </h2>
+              </div>
+              <p class="text-xs text-neutral-500 mt-1">
+                线路架构: <span class="font-medium text-neutral-700 dark:text-neutral-300">{a.lineType}</span> · 
+                支持协议: <span class="font-mono text-neutral-700 dark:text-neutral-300">{a.protocols.join(", ")}</span> · 
+                起步价格: <strong class="text-(--primary)">¥{a.entryPrice}{a.pricePeriod}</strong>
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <a
+                href={`/brands/${a.id}/`}
+                class="btn-regular py-1.5 px-3 rounded-lg text-xs font-bold transition flex-1 sm:flex-initial text-center"
+              >
+                查看完整评测
+              </a>
+              <a
+                href={a.affUrl}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                class="py-1.5 px-3 rounded-lg text-xs font-bold bg-(--primary) text-white hover:opacity-95 transition flex items-center justify-center gap-1 flex-1 sm:flex-initial"
+              >
+                官网直达 ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Observatory Speedtest Component -->
+          <SpeedtestDashboard
+            brandName={a.name}
+            items={a.speedtest || []}
+            speedtestImage={a.speedtestImage}
+            testedAt={a.verifiedDate}
+          />
+
+          <!-- Performance Brief -->
+          <div class="bg-black/5 dark:bg-white/5 rounded-xl p-4 text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            <strong class="text-neutral-900 dark:text-neutral-100 block mb-1">实测简析与使用结论：</strong>
+            {a.name}在本次实测中，亚太近端节点表现出高吞吐特质。流媒体解锁方面，Netflix: <strong>{a.unlockStatus.netflix}</strong>，ChatGPT: <strong>{a.unlockStatus.chatgpt}</strong>。
+            推荐优先使用其香港及日本核心节点，如需更多参数及优惠码可在品牌专属页面查看。
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</MainGridLayout>

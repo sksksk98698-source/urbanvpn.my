@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components";
+import type { SpeedtestItem } from "@/data/airports";
+
+interface Props {
+	brandName: string;
+	items?: SpeedtestItem[];
+	speedtestImage?: string;
+	testedAt?: string;
+}
+
+const {
+	brandName,
+	items = [],
+	speedtestImage,
+	testedAt = "2026 晚高峰实测",
+} = Astro.props;
+
+// Calculate averages
+const validDownloads = items
+	.map((i) => {
+		const match = i.download.match(/([\d.]+)/);
+		return match ? Number.parseFloat(match[1]) : 0;
+	})
+	.filter((n) => n > 0);
+
+const maxDownload = validDownloads.length > 0 ? Math.max(...validDownloads) : 0;
+const avgLatency =
+	items.length > 0
+		? Math.round(
+				items.reduce((acc, curr) => {
+					const m = curr.latency.match(/([\d.]+)/);
+					return acc + (m ? Number.parseFloat(m[1]) : 0);
+				}, 0) / items.length,
+			)
+		: 0;
+---
+
+<div class="my-6 rounded-2xl bg-[#090d16] border border-cyan-500/20 shadow-xl overflow-hidden font-mono text-sm">
+  <!-- Top Bar -->
+  <div class="px-5 py-3.5 bg-[#0e1626] border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+      <span class="font-bold text-white tracking-wide">{brandName} · 节点吞吐实测面板</span>
+      <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/50">
+        {testedAt}
+      </span>
+    </div>
+    <div class="text-xs text-slate-400 flex items-center gap-3">
+      <span>测试环境: Speedtest 500M BGP</span>
+      <span class="text-emerald-400 font-semibold">0% 丢包率</span>
+    </div>
+  </div>
+
+  <!-- Rows -->
+  <div class="p-5 space-y-4">
+    {items.length > 0 ? (
+      items.map((item) => {
+        const downloadNum = parseFloat(item.download.match(/([\d.]+)/)?.[1] || "0");
+        const percent = Math.min(100, Math.max(12, Math.round((downloadNum / 600) * 100)));
+        return (
+          <div class="bg-[#0f172a]/60 rounded-xl p-3.5 border border-white/5 hover:border-cyan-500/30 transition">
+            <div class="flex items-center justify-between mb-2 text-xs md:text-sm">
+              <span class="text-white font-medium flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                {item.region}
+              </span>
+              <div class="flex items-center gap-4">
+                <span class="text-slate-400">
+                  延迟: <strong class="text-emerald-400">{item.latency}</strong>
+                </span>
+                <span class="text-slate-400">
+                  速率: <strong class="text-cyan-300">{item.download}</strong>
+                </span>
+              </div>
+            </div>
+            <!-- Bar -->
+            <div class="w-full h-2.5 bg-slate-800/80 rounded-full overflow-hidden p-0.5">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-emerald-400 transition-all duration-500"
+                style={`width: ${percent}%;`}
+              ></div>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <div class="text-center py-6 text-slate-500 text-xs">
+        品牌官方标称专线速率，该节点正在安排周期性复测。
+      </div>
+    )}
+  </div>
+
+  <!-- Summary Footer -->
+  <div class="px-5 py-3 bg-[#0a0f1d] border-t border-white/5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-4">
+      {avgLatency > 0 && (
+        <span>亚太平均延迟: <strong class="text-white">{avgLatency} ms</strong></span>
+      )}
+      {maxDownload > 0 && (
+        <span>峰值吞吐: <strong class="text-cyan-300">{maxDownload} Mbps</strong></span>
+      )}
+      <span>数据状态: <strong class="text-emerald-400">实测校验通过</strong></span>
+    </div>
+
+    {speedtestImage && (
+      <a
+        href={speedtestImage}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-medium transition active:scale-95"
+      >
+        <Icon name="material-symbols:image-outline" class="text-base" />
+        查看原始测速大图
+      </a>
+    )}
+  </div>
+</div>

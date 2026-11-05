@@ -11,6 +11,9 @@ interface Props {
 const { lang } = Astro.props;
 
 const config = profileConfig;
+
+const isExternal = (linkUrl: string) =>
+	linkUrl.startsWith("http://") || linkUrl.startsWith("https://");
 ---
 <div class="card-base p-3">
     <a aria-label="Go to About Page" href={url('/about/', lang)}
@@ -29,17 +32,31 @@ const config = profileConfig;
         <div class="h-1 w-5 bg-(--primary) mx-auto rounded-full mb-2 transition"></div>
         <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
         <div class="flex flex-wrap gap-2 justify-center mb-1">
-            {config.links.length > 1 && config.links.map(item =>
-                    <a rel="me" aria-label={item.name} href={item.url} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90">
+            {config.links.length > 1 && config.links.map(item => {
+                const ext = isExternal(item.url);
+                return (
+                    <a rel={ext ? "noopener noreferrer me" : "me"}
+                       aria-label={item.name}
+                       href={ext ? item.url : url(item.url, lang)}
+                       target={ext ? "_blank" : undefined}
+                       class="btn-regular rounded-lg h-10 w-10 active:scale-90">
                         <Icon name={item.icon} class="text-[1.5rem]"></Icon>
                     </a>
-            )}
-            {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].url} target="_blank"
-                                            class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
-                <Icon name={config.links[0].icon} class="text-[1.5rem]"></Icon>
-                {config.links[0].name}
-            </a>}
+                );
+            })}
+            {config.links.length == 1 && (() => {
+                const ext = isExternal(config.links[0].url);
+                return (
+                    <a rel={ext ? "noopener noreferrer me" : "me"}
+                       aria-label={config.links[0].name}
+                       href={ext ? config.links[0].url : url(config.links[0].url, lang)}
+                       target={ext ? "_blank" : undefined}
+                       class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
+                        <Icon name={config.links[0].icon} class="text-[1.5rem]"></Icon>
+                        {config.links[0].name}
+                    </a>
+                );
+            })()}
         </div>
     </div>
 </div>
-

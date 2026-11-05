@@ -1,0 +1,194 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteUrl } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+
+const title = "专线网络与协议科普：IEPL、IPLC、BGP隧道与原生IP流媒体解锁原理";
+const description =
+	"深入解析跨境网络专线技术，科普IEPL与IPLC的区别、BGP智能中转原理、VLESS协议优势，以及流媒体与ChatGPT原生IP防封锁解密。帮助用户建立科学选型认知。";
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: title,
+	description: description,
+	url: siteUrl("topics/"),
+	author: {
+		"@type": "Organization",
+		name: "urbanVPN",
+		url: siteUrl(),
+	},
+};
+---
+
+<MainGridLayout title={title} description={description} lang="zh-CN">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+  <div class="space-y-6">
+    <!-- Header -->
+    <div class="card-base p-6 md:p-8 rounded-2xl relative overflow-hidden">
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-(--primary)/10 border border-(--primary)/20 text-(--primary) text-xs font-semibold">
+          <Icon name="material-symbols:school-outline" class="text-sm" />
+          网络工程与抗封锁技术深度科普
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-neutral-50 tracking-tight">
+          专线网络、隧道中转与现代协议技术全解
+        </h1>
+        <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          面对机场清单中眼花缭乱的“IEPL专线”、“IPLC物理专线”、“BGP双程中转”、“VLESS XTLS”、“原生住宅IP”，普通用户常常感到无从下手。本专题从底层网络工程出发，为您剥离营销包装，还原各项核心指标的技术真相。
+        </p>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between text-xs text-neutral-400 gap-2">
+        <span>文稿审校：urbanVPN 网络实验室</span>
+        <a href="/brands/" class="text-(--primary) font-bold hover:underline">
+          去 42 家机场品牌库中按线路类型筛选 →
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter 1: IEPL vs IPLC vs BGP -->
+    <div class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+      <div class="flex items-center gap-2 pb-2 border-b border-black/5 dark:border-white/10">
+        <span class="text-xs px-2.5 py-0.5 rounded bg-(--primary) text-white font-mono font-bold">01</span>
+        <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+          线路类型深度对比：公网直连、BGP中转、IEPL与IPLC专线
+        </h2>
+      </div>
+
+      <div class="overflow-x-auto text-xs">
+        <table class="w-full text-left font-mono">
+          <thead class="bg-black/5 dark:bg-white/5 border-b border-black/10 dark:border-white/10 text-neutral-500">
+            <tr>
+              <th class="py-3 px-4 font-semibold">线路类型</th>
+              <th class="py-3 px-4 font-semibold">过境传输方式</th>
+              <th class="py-3 px-4 font-semibold">晚高峰延迟稳定性</th>
+              <th class="py-3 px-4 font-semibold">抗封锁与抗QoS能力</th>
+              <th class="py-3 px-4 font-semibold">典型价格与代表品牌</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-black/5 dark:divide-white/5 font-sans">
+            <tr>
+              <td class="py-3 px-4 font-bold text-neutral-900 dark:text-neutral-100">普通公网直连</td>
+              <td class="py-3 px-4 text-neutral-500">直接走普通公网出口，经GFW过滤</td>
+              <td class="py-3 px-4 text-rose-500 font-semibold">极易波动，晚高峰经常丢包</td>
+              <td class="py-3 px-4 text-rose-500">差，敏感期容易被阻断</td>
+              <td class="py-3 px-4 text-neutral-500">极便宜 (¥5/月以内)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-neutral-900 dark:text-neutral-100">国内BGP中转隧道</td>
+              <td class="py-3 px-4 text-neutral-500">国内三网BGP汇聚后加密打包出海</td>
+              <td class="py-3 px-4 text-amber-500 font-semibold">良好，延迟抖动可控</td>
+              <td class="py-3 px-4 text-emerald-500">良好，保护海外真实IP</td>
+              <td class="py-3 px-4 text-neutral-500">主力中档 (¥15-20/月，如暮光、微风)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-(--primary) font-black">IEPL 商业专线</td>
+              <td class="py-3 px-4 text-neutral-600 dark:text-neutral-300">局域网点对点商业以太网专线，不经公网</td>
+              <td class="py-3 px-4 text-emerald-500 font-bold">优秀，亚太近端延迟极低 (20-30ms)</td>
+              <td class="py-3 px-4 text-emerald-500 font-bold">极强，完全绕开公网审查</td>
+              <td class="py-3 px-4 text-neutral-500">性价比至高端 (如光速云、星岛梦)</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-purple-600 dark:text-purple-400 font-black">IPLC 国际物理专线</td>
+              <td class="py-3 px-4 text-neutral-600 dark:text-neutral-300">纯物理跨国海底光缆物理直连</td>
+              <td class="py-3 px-4 text-emerald-500 font-bold">极致稳定，0 丢包率</td>
+              <td class="py-3 px-4 text-emerald-500 font-bold">物理隔离，天然免受公网封锁</td>
+              <td class="py-3 px-4 text-neutral-500">商务高端 (如Firefly、WgetCloud)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chapter 2: Protocols VLESS vs SS vs Trojan -->
+    <div class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+      <div class="flex items-center gap-2 pb-2 border-b border-black/5 dark:border-white/10">
+        <span class="text-xs px-2.5 py-0.5 rounded bg-(--primary) text-white font-mono font-bold">02</span>
+        <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+          代理协议进化史：从 Shadowsocks 到 VLESS
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            Shadowsocks (SS)
+          </div>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            轻量快速，CPU 消耗低。在有 <strong>IEPL / IPLC 专线</strong> 护航的环境下表现极佳。但若用于公网裸跑，其流量特征容易被深度包检测（DPI）识别。
+          </p>
+        </div>
+
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Trojan
+          </div>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            将代理流量伪装成互联网中最普遍的正常 HTTPS 网站访问流量。必须搭配有效域名和 TLS 证书，具备很强的隐蔽抗封锁能力。
+          </p>
+        </div>
+
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+            VLESS (现代协议)
+          </div>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            去除了冗余加密流程，直接依托底层真实 TLS，握手延迟更低、吞吐更高。如<a href="/brands/guangsu/" class="text-(--primary) font-bold">光速云</a>广泛支持 VLESS 协议。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3: Streaming & ChatGPT IP Secrets -->
+    <div class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+      <div class="flex items-center gap-2 pb-2 border-b border-black/5 dark:border-white/10">
+        <span class="text-xs px-2.5 py-0.5 rounded bg-(--primary) text-white font-mono font-bold">03</span>
+        <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-50">
+          为什么能打开网页却看不了 Netflix 或 ChatGPT？揭秘“原生 IP 与机房 IP”
+        </h2>
+      </div>
+
+      <div class="space-y-3 text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        <p>
+          许多用户误以为“只要能连上节点就能畅享所有服务”，但在访问 <strong>Netflix、Disney+、ChatGPT、Claude、TikTok 直播</strong> 时，服务商的风控系统会读取访问者的 IP 类型：
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+          <div class="bg-rose-500/5 border border-rose-500/20 p-4 rounded-xl">
+            <strong class="text-rose-500 block mb-1">机房广播 IP (DataCenter IP)</strong>
+            由云服务器商（如 AWS、DigitalOcean、Linode）批量分配。流媒体与 AI 公司常年维护该黑名单库，一旦检测到立即弹出“检测到使用代理/区域不支持”的拦截提示。
+          </div>
+          <div class="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-xl">
+            <strong class="text-emerald-500 block mb-1">原生家庭住宅 IP (Residential IP / Clean IP)</strong>
+            由当地传统电信运营商（如香港 HKT、台湾中华电信、日本 NTT）直接分发，在流媒体数据库中显示为真实居民宽带，因此能够 100% 完美解锁自制剧与全部限制。
+          </div>
+        </div>
+        <p>
+          优质机场（如<a href="/brands/guangsu/" class="text-(--primary) font-bold">光速云</a>、<a href="/brands/muguang/" class="text-(--primary) font-bold">暮光加速</a>）会在海外落地端部署专用的 DNS 重定向解锁服务或采购真实住宅 IP，确保 ChatGPT 和流媒体的稳定访问。
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA Box -->
+    <div class="card-base p-6 md:p-8 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-(--primary)/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-base font-bold text-neutral-900 dark:text-neutral-50">
+          掌握原理后，如何选出最适合您的机场？
+        </h3>
+        <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+          前往品牌库，按线路架构、解锁能力与真实测速多维筛选。
+        </p>
+      </div>
+      <a
+        href="/brands/"
+        class="py-2.5 px-6 rounded-xl bg-(--primary) text-white font-bold text-xs hover:opacity-95 transition shadow-lg shadow-(--primary)/20 whitespace-nowrap"
+      >
+        进入 42 家机场品牌库 ↗
+      </a>
+    </div>
+  </div>
+</MainGridLayout>

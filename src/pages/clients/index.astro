@@ -1,0 +1,310 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteUrl } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+
+const title =
+	"2026 机场代理客户端大全：Windows、Mac、iOS、Android全平台下载与配置教程";
+const description =
+	"整理2026年主流第三方代理客户端，包括Clash Verge Rev、v2rayN、Shadowrocket（小火箭）、FlClash、Hiddify、Surge、Stash与OpenClash软路由。提供安全官方下载地址、协议支持说明与通用订阅导入指引。";
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: title,
+	description: description,
+	url: siteUrl("clients/"),
+	author: {
+		"@type": "Organization",
+		name: "urbanVPN",
+		url: siteUrl(),
+	},
+};
+
+const platforms = [
+	{
+		id: "windows",
+		name: "Windows 电脑客户端",
+		icon: "fa6-brands:windows",
+		searchKeywords:
+			"Clash for Windows、Clash Verge Rev 下载、v2rayN 下载、Windows 机场客户端、Mihomo 客户端",
+		clients: [
+			{
+				name: "Clash Verge Rev",
+				core: "Mihomo 内核",
+				features: "订阅管理、智能规则分流、TUN 模式网卡接管、现代美观界面",
+				recommend: "首推 / 新手与进阶",
+				url: "https://github.com/clash-verge-rev/clash-verge-rev",
+			},
+			{
+				name: "v2rayN",
+				core: "Xray / sing-box 核心",
+				features: "多协议支持、节点延迟批量真连接测试、轻量稳定",
+				recommend: "多协议 / 极客首选",
+				url: "https://github.com/2dust/v2rayN",
+			},
+			{
+				name: "FlClash",
+				core: "Mihomo 内核",
+				features: "简洁跨平台界面、规则分流、低内存占用",
+				recommend: "轻量简约",
+				url: "https://github.com/chen08209/FlClash",
+			},
+			{
+				name: "Hiddify",
+				core: "多核心",
+				features: "零配置一键连接、多协议支持、自动选优最佳节点",
+				recommend: "新手友好",
+				url: "https://github.com/hiddify/hiddify-app",
+			},
+			{
+				name: "Karing",
+				core: "sing-box 核心",
+				features: "全平台通用配置、规则分流、界面直观",
+				recommend: "跨设备通用",
+				url: "https://github.com/KaringX/karing",
+			},
+		],
+	},
+	{
+		id: "macos",
+		name: "macOS 苹果电脑客户端",
+		icon: "fa6-brands:apple",
+		searchKeywords:
+			"Clash Verge Mac、Surge Mac、M1/M2/M3 Mac 代理客户端、Apple Silicon 客户端",
+		clients: [
+			{
+				name: "Clash Verge Rev (Mac)",
+				core: "Mihomo 原生兼容",
+				features:
+					"原生支持 Apple Silicon (M系列芯片) 与 Intel 架构，界面优雅、分流强大",
+				recommend: "macOS 综合首推",
+				url: "https://github.com/clash-verge-rev/clash-verge-rev",
+			},
+			{
+				name: "FlClash (Mac)",
+				core: "Mihomo",
+				features: "低资源消耗，菜单栏常驻快速切换",
+				recommend: "轻巧便捷",
+				url: "https://github.com/chen08209/FlClash",
+			},
+			{
+				name: "Surge Mac",
+				core: "Surge 专有核心",
+				features: "高级网络调试、抓包、流量深度追踪与企业级策略路由",
+				recommend: "专业开发者付费",
+				url: "https://nssurge.com/",
+			},
+		],
+	},
+	{
+		id: "ios",
+		name: "iOS (iPhone / iPad) 客户端",
+		icon: "fa6-brands:app-store-ios",
+		searchKeywords:
+			"Shadowrocket 下载、小火箭节点导入、Stash 配置教程、Quantumult X 圈X",
+		clients: [
+			{
+				name: "Shadowrocket (小火箭)",
+				core: "专有核心",
+				features:
+					"普及率最高的规则代理工具，支持扫码导入、多种订阅解析与深度分流",
+				recommend: "iOS 必备神器",
+				url: "https://apps.apple.com/us/app/shadowrocket/id932747118",
+			},
+			{
+				name: "Stash",
+				core: "Clash 核心 iOS 移植",
+				features: "完美兼容 Clash YAML 规则集与策略组，具备图形化覆写面板",
+				recommend: "Clash 用户首选",
+				url: "https://apps.apple.com/us/app/stash/id1596063349",
+			},
+			{
+				name: "Quantumult X (圈X)",
+				core: "专有高性能网络栈",
+				features: "强大的自定义规则分流、MitM 脚本重写与精准 DNS 控制",
+				recommend: "进阶极客",
+				url: "https://apps.apple.com/us/app/quantumult-x/id1453926894",
+			},
+		],
+	},
+	{
+		id: "android",
+		name: "Android 安卓手机客户端",
+		icon: "fa6-brands:android",
+		searchKeywords: "v2rayNG 下载、安卓 Clash、FlClash 安卓版、Hiddify Android",
+		clients: [
+			{
+				name: "v2rayNG",
+				core: "Xray 核心",
+				features: "稳定耐用，支持直接解析 VLESS、Shadowsocks、VMess 等主流链接",
+				recommend: "安卓装机必备",
+				url: "https://github.com/2dust/v2rayNG",
+			},
+			{
+				name: "FlClash (Android)",
+				core: "Mihomo 内核",
+				features: "Material You 现代设计语言，多配置平滑切换与分流",
+				recommend: "颜值首选",
+				url: "https://github.com/chen08209/FlClash",
+			},
+			{
+				name: "Hiddify (Android)",
+				core: "sing-box / Xray",
+				features: "零门槛自动节点调度，对新手极度友好",
+				recommend: "新手首推",
+				url: "https://github.com/hiddify/hiddify-app",
+			},
+		],
+	},
+	{
+		id: "openwrt",
+		name: "OpenWrt / 软路由与 Linux",
+		icon: "fa6-brands:linux",
+		searchKeywords: "OpenClash 配置、软路由翻墙、全屋透明代理、Linux v2rayA",
+		clients: [
+			{
+				name: "OpenClash",
+				core: "Mihomo / Clash 内核",
+				features:
+					"运行于软路由系统的规则代理大师，实现全家所有电视、手机、电脑无感透明代理",
+				recommend: "软路由标配",
+				url: "https://github.com/vernesong/OpenClash",
+			},
+			{
+				name: "v2rayA (Linux)",
+				core: "Xray 核心",
+				features:
+					"Web 网页控制端，适合没有传统桌面的 Linux 主机或家庭 NAS 部署",
+				recommend: "Linux NAS 首选",
+				url: "https://github.com/v2rayA/v2rayA",
+			},
+		],
+	},
+];
+---
+
+<MainGridLayout title={title} description={description} lang="zh-CN">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+  <div class="space-y-6">
+    <!-- Header -->
+    <div class="card-base p-6 md:p-8 rounded-2xl relative overflow-hidden">
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-(--primary)/10 border border-(--primary)/20 text-(--primary) text-xs font-semibold">
+          <Icon name="material-symbols:download-for-offline-outline" class="text-sm" />
+          全平台官方开源项目索引 · 拒绝第三方篡改打包
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-neutral-50 tracking-tight">
+          2026 机场代理客户端全平台大全与配置指引
+        </h1>
+        <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          机场服务通常提供<strong>订阅链接（Subscription URL）</strong>，用户需要将其导入到第三方的代理客户端中才能完成分流连接。本站整理了 Windows、macOS、iOS、Android、Linux 及 OpenWrt 软路由的主流开源及受信任客户端，所有链接均为 <strong>GitHub Release / App Store 官方正规渠道</strong>，防止误下载含有恶意后门的仿冒软件。
+        </p>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between text-xs text-neutral-400 gap-2">
+        <span>安全提醒：切勿在不可信第三方论坛或搜索引擎非官方下载站下载经过二次打包的客户端。</span>
+        <a href="/brands/" class="text-(--primary) font-bold hover:underline">
+          还没有机场订阅？前往 42 家机场品牌库选购 →
+        </a>
+      </div>
+    </div>
+
+    <!-- Platform Modules -->
+    <div class="space-y-8">
+      {platforms.map((p) => (
+        <div id={p.id} class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-black/5 dark:border-white/10">
+            <div class="w-10 h-10 rounded-xl bg-(--primary)/10 text-(--primary) flex items-center justify-center text-xl">
+              <Icon name={p.icon} />
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                {p.name}
+              </h2>
+              <p class="text-xs text-neutral-400">
+                核心相关搜索: <span class="font-mono">{p.searchKeywords}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Clients Table / Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {p.clients.map((c) => (
+              <div class="bg-black/5 dark:bg-white/5 rounded-xl p-4 flex flex-col justify-between border border-transparent hover:border-(--primary)/30 transition">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-bold text-sm text-neutral-900 dark:text-neutral-50 flex items-center gap-2">
+                      {c.name}
+                      <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-400">
+                        {c.core}
+                      </span>
+                    </h3>
+                    <span class="text-[11px] px-2 py-0.5 rounded bg-(--primary)/10 text-(--primary) font-medium">
+                      {c.recommend}
+                    </span>
+                  </div>
+                  <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed mb-3">
+                    {c.features}
+                  </p>
+                </div>
+
+                <div class="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
+                  <span class="text-[11px] text-neutral-400">官方正版开源项目</span>
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    class="text-xs font-bold text-(--primary) hover:underline flex items-center gap-1"
+                  >
+                    前往下载地址 ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Universal Subscription Import Tutorial -->
+    <div class="card-base p-6 md:p-8 rounded-2xl space-y-4">
+      <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-50 flex items-center gap-2">
+        <Icon name="material-symbols:integration-instructions-outline" class="text-(--primary) text-2xl" />
+        通用三步法：如何将机场订阅导入代理客户端？
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="w-7 h-7 rounded-full bg-(--primary) text-white font-bold flex items-center justify-center font-mono">
+            1
+          </div>
+          <h3 class="font-bold text-neutral-900 dark:text-neutral-100">复制机场订阅链接</h3>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            登录您的机场后台（如<a href="/brands/guangsu/" class="text-(--primary) font-bold">光速云</a>后台），找到【一键订阅】或【订阅链接】，选择对应的格式（如 Clash 或 通用订阅）并点击复制。
+          </p>
+        </div>
+
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="w-7 h-7 rounded-full bg-(--primary) text-white font-bold flex items-center justify-center font-mono">
+            2
+          </div>
+          <h3 class="font-bold text-neutral-900 dark:text-neutral-100">粘贴并拉取节点</h3>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            打开客户端（如 Clash Verge Rev），进入【Profiles / 配置】界面，将复制的链接粘贴到输入框中，点击【Import / 导入】，软件将自动下载并解析所有可用节点。
+          </p>
+        </div>
+
+        <div class="bg-black/5 dark:bg-white/5 p-4 rounded-xl space-y-2">
+          <div class="w-7 h-7 rounded-full bg-(--primary) text-white font-bold flex items-center justify-center font-mono">
+            3
+          </div>
+          <h3 class="font-bold text-neutral-900 dark:text-neutral-100">选择节点并开启系统代理</h3>
+          <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            在【Proxies / 代理节点】面板中挑选延迟最低的香港或日本节点，打开客户端主界面的【System Proxy / 系统代理】开关，即可畅享高速出海网络。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainGridLayout>

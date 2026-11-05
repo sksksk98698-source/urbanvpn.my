@@ -1,16 +1,16 @@
 ---
 
-title: Fumika のシンプルガイド (ja)
+title: UrbanVPN のコンテンツ作成ガイド (ja)
 published: 2024-04-01
 description: "このブログテンプレートの使い方。"
 image: "./cover.jpg"
-tags: ["Fumika", "Blogging", "Customization"]
+tags: ["ドキュメント", "Markdown", "ガイド"]
 category: Guides
-ogImage: "/media/images/guide-cover.jpg"
+ogImage: "/media/images/banner.svg"
 draft: false
 ---
 
-> カバー画像の出典: [出典](https://www.pixiv.net/en/artworks/137505032)
+
 
 このブログテンプレートは [Astro](https://astro.build/) で構築されています。このガイドで言及されていない内容については、[Astro ドキュメント](https://docs.astro.build/) を参照してください。
 

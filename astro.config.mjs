@@ -35,6 +35,7 @@ import { remarkRuby } from "./src/plugins/remark-ruby.mjs";
 // https://astro.build/config
 export default defineConfig({
 	site: deployConfig.siteUrl,
+	trailingSlash: "always",
 	base: deployConfig.baseUrl,
 	integrations: [
 		swup({
@@ -53,7 +54,6 @@ export default defineConfig({
 		}),
 		icon({
 			include: {
-				"preprocess: vitePreprocess(),": ["*"],
 				"fa6-brands": ["*"],
 				"fa6-regular": ["*"],
 				"fa6-solid": ["*"],

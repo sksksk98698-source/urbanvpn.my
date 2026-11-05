@@ -1,16 +1,16 @@
 ---
 
-title: Simple Guides for Fumika
+title: Content Authoring Guide for UrbanVPN
 published: 2024-04-01
 description: "How to use this blog template."
 image: "./cover.jpg"
-tags: ["Fumika", "Blogging", "Customization"]
+tags: ["Documentation", "Markdown", "Guide"]
 category: Guides
-ogImage: "/media/images/guide-cover.jpg"
+ogImage: "/media/images/banner.svg"
 draft: false
 ---
 
-> Cover image source: [Source](https://www.pixiv.net/en/artworks/137505032)
+
 
 This blog template is built with [Astro](https://astro.build/). For the things that are not mentioned in this guide, you may find the answers in the [Astro Docs](https://docs.astro.build/).
 

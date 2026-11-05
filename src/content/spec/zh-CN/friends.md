@@ -1,5 +1,3 @@
-# 友链
+# 合作伙伴与生态链接
 
-编辑 `src/content/data/friends.json` 以添加站点。
-
-您也可以编辑 `src/content/spec/friends.md` 来修改此处的文本。
+汇集致力于开放互联、数据自主与前沿网络技术的独立项目与社区伙伴。

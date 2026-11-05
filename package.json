@@ -1,5 +1,5 @@
 {
-	"name": "fumika",
+	"name": "urbanvpn",
 	"type": "module",
 	"version": "0.1.0",
 	"scripts": {
@@ -17,7 +17,6 @@
 		"test": "vitest",
 		"test-coverage": "vitest run --coverage",
 		"preinstall": "npx only-allow pnpm",
-		"postinstall": "playwright install chromium",
 		"prepare": "husky"
 	},
 	"dependencies": {
@@ -85,5 +84,6 @@
 		"typescript": "^5.9.3",
 		"vitest": "^4.1.12"
 	},
-	"packageManager": "pnpm@11.25.0"
+	"packageManager": "pnpm@11.25.0",
+	"description": "UrbanVPN - High-speed encrypted VPN tunnels & digital privacy network"
 }

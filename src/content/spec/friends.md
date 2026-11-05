@@ -1,5 +1,3 @@
-# Friends
+# Network Partners & Community
 
-Edit `src/content/data/friends.json` to add sites.
-
-You can also edit `src/content/spec/friends.md` to Change text here.
+A curated directory of independent privacy tools, digital rights organizations, and open-source networks collaborating towards an open internet.

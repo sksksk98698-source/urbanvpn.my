@@ -59,9 +59,9 @@ export type ConfigLang =
 
 Supported Locales:
 
-> See [posts/translation-example](https://fumika-demo.netlify.app/posts/translation-example/). (Shows English as default, Japanese, and Simplified Chinese for example)
+> See [posts/translation-example](/posts/translation-example/). (Shows English as default, Japanese, and Simplified Chinese for example)
 
-> And see [ja/posts/guide](https://fumika-demo.netlify.app/ja/posts/guide/). (For translation with cover image)
+> And see [ja/posts/guide](/ja/posts/guide/). (For translation with cover image)
 
 ## Translation in About & Friends Pages
 
@@ -79,7 +79,7 @@ src/content/spec/
     └── friends.md
 ```
 
-> See [about](https://fumika-demo.netlify.app/about/) and [friends](https://fumika-demo.netlify.app/friends/). (English, Japanese, and Simplified Chinese)
+> See [about](/about/) and [friends](/friends/). (English, Japanese, and Simplified Chinese)
 
 ---
 

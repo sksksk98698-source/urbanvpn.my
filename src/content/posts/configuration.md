@@ -1,21 +1,21 @@
 ---
 
-title: Configuration Guides for Fumika Site
+title: Configuration Guides for UrbanVPN Site
 published: 2026-09-11
 description: "How to configure this blog template."
-tags: ["Fumika", "Blogging", "Customization"]
+tags: ["Configuration", "Blogging", "Customization"]
 category: Guides
 draft: false
 ---
 
-This guide walks you through configuring your site using the `src/config.ts` file in the **Fumika** Astro theme. If you are unfamiliar with JavaScript syntax, consider reviewing basic variable usage. TypeScript will also help catch any data type mismatches.
+This guide walks you through configuring your site using the `src/config.ts` file in the **UrbanVPN** Astro theme. If you are unfamiliar with JavaScript syntax, consider reviewing basic variable usage. TypeScript will also help catch any data type mismatches.
 
 ## Site Configuration
 
 The `siteConfig` object controls core site metadata, layout behaviors, and multi-language support.
 
 ```typescript export const siteConfig: SiteConfig = {
-    title: "Fumika",
+    title: "UrbanVPN",
     subtitle: "Blog",
     lang: "en",
     supportedLangs: ["en", "es", "id", "ja"],
@@ -25,12 +25,12 @@ The `siteConfig` object controls core site metadata, layout behaviors, and multi
     },
     banner: {
         enable: true,
-        src: "assets/images/demo-banner.jpg",
+        src: "assets/images/banner.svg",
         position: "center",
         credit: {
             enable: true,
             text: "Artist Name",
-            url: "https://example.com"
+            url: "https://urbanvpn.my"
         },
     },
     toc: {
@@ -40,7 +40,7 @@ The `siteConfig` object controls core site metadata, layout behaviors, and multi
     favicon: [],
     ogImage: {
         useDefault: true,
-        defaultSrc: "/media/images/banner.jpg",
+        defaultSrc: "/media/images/banner.svg",
     },
 };
 ```
@@ -91,7 +91,7 @@ Set `theme.mode` for default color theme mode (`"light"` or `"dark"`).
 | Attribute       | Description                                                                                                                                                                                                                                                       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | banner.enable   | Set to `true` to display the hero banner image at the top of pages                                                                                                                                                                                                |
-| banner.src      | Image source path.<br/>Relative to `src/` by default (e.g., `src/assets/images/demo-banner.jpg`),<br/>or relative to `public/` if prefixed with `/` (e.g., `/media/images/banner.jpg`).                                                                           |
+| banner.src      | Image source path.<br/>Relative to `src/` by default (e.g., `src/assets/images/banner.svg`),<br/>or relative to `public/` if prefixed with `/` (e.g., `/media/images/banner.svg`).                                                                           |
 | banner.position | Object alignment for the banner image. Accepts `"top"`, `"center"`, or `"bottom"`.                                                                                                                                                                                |
 | banner.credit   | Artwork attribution configuration:<br/>1. `enable`: Set to `true` to display the credit text of the banner.<br/>2. `text`: The credit string to display (e.g., artist name or source).<br/>3. `url`: (_Optional_) Link to the original artwork or artist profile. |
 
@@ -166,8 +166,8 @@ The `profileConfig` object populates the sidebar profile card with your avatar, 
 
 ```typescript
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.jpg",
-	name: "Fumika",
+	avatar: "assets/images/avatar.svg",
+	name: "UrbanVPN",
 	bio: "Lorem ipsum dolor sit amet",
 	links: [
 		{
@@ -184,7 +184,7 @@ export const profileConfig: ProfileConfig = {
 };
 ```
 
-`avatar` path is relative to the `src/` directory by default (e.g., `"assets/images/demo-avatar.jpg"`). Also it relative to the `public/` directory if the path starts with a leading slash `/` (e.g., `"/media/images/avatar.webp"`).
+`avatar` path is relative to the `src/` directory by default (e.g., `"assets/images/avatar.svg"`). Also it relative to the `public/` directory if the path starts with a leading slash `/` (e.g., `"/media/images/avatar.webp"`).
 
 `links` icons are powered by Iconify. If you use an icon set that is not already included in the template, you must install the corresponding package:
 
@@ -209,7 +209,7 @@ export const licenseConfig: LicenseConfig = {
 ## Expressive Code Configuration
 
 :::warning
-Please select a dark theme, as **Fumika** currently only supports dark background color.
+Please select a dark theme, as the theme currently only supports dark background color.
 :::
 
 ```typescript
@@ -220,11 +220,11 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 ## Comment Configuration
 
-**Fumika** targeting 3 comment support, [Disqus](https://disqus.com/), [Giscus](https://giscus.app), and [Twikoo](https://twikoo.js.org/en/). Currently only support Giscus.
+Targeting 3 comment support, [Disqus](https://disqus.com/), [Giscus](https://giscus.app), and [Twikoo](https://twikoo.js.org/en/). Currently only support Giscus.
 
 ### Giscus
 
-Fumika supports Giscus out-of-the-box for GitHub Discussions-powered comments.
+Supports Giscus out-of-the-box for GitHub Discussions-powered comments.
 
 ```typescript
 export const commentConfig: CommentConfig = {
@@ -274,9 +274,9 @@ export const commentConfig: CommentConfig = {
 
 ## Analytics Configuration
 
-Analytics allow you to monitor and analyze site traffic. **Fumika** integrates with [Partytown](https://partytown.qwik.dev/) to offload third-party scripts to a Web Worker, ensuring your site maintains optimal loading performance.
+Analytics allow you to monitor and analyze site traffic. Integrates with [Partytown](https://partytown.qwik.dev/) to offload third-party scripts to a Web Worker, ensuring your site maintains optimal loading performance.
 
-Currently, **Fumika** natively supports [Google Analytics](https://developers.google.com/analytics) (GA4). Integration with [Umami](https://umami.is/) is planned for a future update.
+Currently natively supports [Google Analytics](https://developers.google.com/analytics) (GA4). Integration with [Umami](https://umami.is/) is planned for a future update.
 
 To disable analytics completely, set `enabled` to `false`:
 
@@ -313,20 +313,20 @@ Configure your site's domain and base path in `deployConfig`:
 
 ```typescript
 export const deployConfig: DeployConfig = {
-	siteUrl: "https://example.com",
+	siteUrl: "https://urbanvpn.my",
 	baseUrl: "/",
 };
 ```
 
-Keep `baseUrl` as `"/"` if you are deploying directly to the root domain like `https://example.com`.
+Keep `baseUrl` as `"/"` if you are deploying directly to the root domain like `https://urbanvpn.my`.
 
 **Subpath Deployment Example**
 
-If your site is hosted at `https://example.com/blog`, configure `deployConfig` as follows:
+If your site is hosted at `https://urbanvpn.my/blog`, configure `deployConfig` as follows:
 
 ```typescript
 export const deployConfig: DeployConfig = {
-	siteUrl: "https://example.com",
+	siteUrl: "https://urbanvpn.my",
 	baseUrl: "/blog",
 };
 ```

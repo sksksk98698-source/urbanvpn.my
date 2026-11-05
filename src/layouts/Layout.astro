@@ -17,7 +17,7 @@ import {
 } from "../constants/constants";
 import { defaultFavicons } from "../constants/icon";
 import type { Favicon } from "../types/config";
-import { pathsEqual, url } from "../utils/url-utils";
+import { pathsEqual, siteUrl, url } from "../utils/url-utils";
 import "katex/dist/katex.css";
 import GoogleAnalytics from "@components/analytics/GoogleAnalytics.astro";
 import SEO from "@components/misc/SEO.astro";
@@ -78,12 +78,7 @@ const bannerOffset =
 	<head>
 		<meta charset="UTF-8" />
 
-		<SEO
-			title={title} 
-			description={description} 
-			image={image} 
-			setOGTypeArticle={setOGTypeArticle}
-		/>
+		<SEO title={title} description={description} image={image} setOGTypeArticle={setOGTypeArticle} lang={siteLang} />
 
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
@@ -128,7 +123,7 @@ const bannerOffset =
 
 		<slot name="head"></slot>
 
-		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${import.meta.env.SITE}rss.xml`}/>
+		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={siteUrl("rss.xml")}/>
 
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"is-home": isHomePage, "enable-banner": enableBanner}]}

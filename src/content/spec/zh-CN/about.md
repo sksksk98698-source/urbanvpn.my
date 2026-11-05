@@ -1,8 +1,18 @@
-# 关于
+# 关于 UrbanVPN
 
-这是 [Fumika](https://github.com/iyanarmanda/fumika) 的演示站点，基于 [Fuwari](https://github.com/saicaca/fuwari) 进行深度修改而成。
+**UrbanVPN** 致力于为全球用户构建高速、安全、注重隐私的下一代分布式网络与数字安全基础设施。
 
-::github{repo="iyanarmanda/fumika"}
+## 核心使命
 
-> ### 本站使用的图片来源
-> - [Profile](https://www.pixiv.net/en/artworks/126216012) and others by [畑乃おいも](https://www.pixiv.net/en/users/69841549)
+在数据追踪、网络监控与信息碎片化的时代，隐私权是数字世界中不可或缺的基本权利。UrbanVPN 旨在消除地域边界，抵御流量监听，为个人与分布式团队提供可靠的网络加密与隧道传输能力。
+
+## 技术架构准则
+
+- **严格零日志准则（Zero-Logs Policy）**：系统底层设计杜绝记录任何用户的访问历史、会话时长、真实 IP 与 DNS 查询记录。
+- **纯内存（RAM-only）无盘运行**：所有边缘网关节点均采用无盘纯内存系统部署，任何断电或硬件重启都会彻底抹除所有临时数据，物理层面杜绝数据泄露。
+- **前沿密码学保障**：原生支持 WireGuard 现代加密隧道，结合 ChaCha20-Poly1305 与 Curve25519 椭圆曲线算法，兼具极速握手体验与抗审查抗破解韧性。
+- **内置安全 DNS 与防泄漏机制**：网关集成独立自建递归 DNS，全面阻断 ISP 劫持与 IPv6 / WebRTC 意外穿透。
+
+## 我们的愿景
+
+开放、互联、安全。我们持续分享网络工程、信息加密与数字安全相关的最佳实践，捍卫开放网络与数据自主权。

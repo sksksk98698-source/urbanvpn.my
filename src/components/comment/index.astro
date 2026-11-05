@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { commentConfig } from "@/config";
-
 import Giscus from "./Giscus.svelte";
 
 interface Props {
@@ -10,18 +9,14 @@ interface Props {
 }
 const { lang } = Astro.props;
 
-// const { post } = Astro.props;
-// const path = post ? `/posts/${post.id}` : Astro.url.pathname;
-// const url = `${Astro.site?.href || Astro.url.origin}${path}`;
-
 let commentService = "";
-if (commentConfig?.giscus) {
+if (commentConfig?.giscus && commentConfig.giscus.repo) {
 	commentService = "giscus";
 }
 ---
 
-<div class="card-base p-6 mb-4">
-	<!-- TODO sometimes Giscus theme color not reactive -->
-  {commentService === 'giscus' && <Giscus client:only="svelte" lang={lang} />}
-  {commentService === '' && null }
-</div>
+{commentService === 'giscus' && (
+	<div class="card-base p-6 mb-4">
+		<Giscus client:only="svelte" lang={lang} />
+	</div>
+)}

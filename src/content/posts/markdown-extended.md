@@ -3,9 +3,9 @@
 title: Markdown Extended Features
 published: 2024-05-01
 updated: 2026-09-09
-description: 'Read more about Markdown features in Fumika'
+description: 'Explore extended Markdown syntax, admonitions, and typography features.'
 image: ''
-tags: [Demo, Example, Markdown, Fumika]
+tags: [Markdown, Syntax, Typography, Guide]
 category: 'Examples'
 draft: false
 ---
@@ -14,12 +14,12 @@ draft: false
 
 You can add dynamic cards that link to GitHub repositories, on page load, the repository information is pulled from the GitHub API.
 
-::github{repo="Fabrizz/MMM-OnSpotify"}
+::github{repo="withastro/astro"}
 
 Create a GitHub repository card with the code `::github{repo="<owner>/<repo>"}`.
 
 ```markdown
-::github{repo="iyanarmanda/fumika"}
+::github{repo="withastro/astro"}
 ```
 
 ## Admonitions

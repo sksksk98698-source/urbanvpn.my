@@ -1,0 +1,119 @@
+---
+import BrandFilter from "@components/brands/BrandFilter.svelte";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteUrl } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+import { airports } from "@/data/airports";
+
+const title = "2026 机场品牌库：42家主流机场多维度参数与实测矩阵";
+const description =
+	"收录42家主流机场服务商，涵盖IEPL专线、IPLC、BGP中转、VLESS协议、不限时流量包及超低价套餐。提供晚高峰测速大图与真实流媒体/AI解锁数据。";
+
+const mainPush = airports.find((a) => a.isMainPush) || airports[0];
+
+// JSON-LD ItemList Schema
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	name: title,
+	description: description,
+	url: siteUrl("brands/"),
+	numberOfItems: airports.length,
+	itemListElement: airports.map((a, idx) => ({
+		"@type": "ListItem",
+		position: idx + 1,
+		name: a.name,
+		url: siteUrl(`brands/${a.id}/`),
+	})),
+};
+---
+
+<MainGridLayout title={title} description={description} lang="zh-CN">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
+  <div class="space-y-6">
+    <!-- Hero Header -->
+    <div class="card-base p-6 md:p-8 rounded-2xl relative overflow-hidden">
+      <div class="relative z-10 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-(--primary)/10 border border-(--primary)/20 text-(--primary) text-xs font-semibold mb-3">
+          <Icon name="material-symbols:verified-outline" class="text-sm" />
+          全库 42 家机场品牌 · 真实数据观测体系
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-neutral-50 tracking-tight mb-3">
+          2026 机场品牌库与综合选型雷达
+        </h1>
+        <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          基于网络可观测性评测体系，拒绝虚标与虚假承诺。收录 42 家主流机场，包含 <strong>17 家完整节点吞吐实测大图</strong>。支持按线路类型、价格预算、协议支持等核心维度即时筛选，帮您找到最适合的高速网络通道。
+        </p>
+      </div>
+
+      <!-- Compliance disclosure banner -->
+      <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/10 flex flex-wrap items-center justify-between text-xs text-neutral-400 gap-2">
+        <span class="flex items-center gap-1">
+          <Icon name="material-symbols:info-outline" class="text-sm text-cyan-500" />
+          免责披露：本站部分注册直达按钮含推广赞助链接，可能为本站维护带来佣金，但不影响您的最终购买价格。
+        </span>
+        <span class="font-mono">最后全量复测：2026-10-19</span>
+      </div>
+    </div>
+
+    <!-- Featured Spotlight: Guangsu Cloud (主推第一) -->
+    {mainPush && (
+      <div class="card-base p-6 md:p-8 rounded-2xl border-2 border-amber-500/40 relative overflow-hidden shadow-xl shadow-amber-500/5">
+        <div class="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xs px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-black tracking-wide">
+                TOP 1 全站年度主推
+              </span>
+              <span class="text-xs px-2.5 py-0.5 rounded bg-cyan-500/10 text-cyan-500 border border-cyan-500/30 font-medium">
+                {mainPush.lineType}
+              </span>
+              <span class="text-xs text-neutral-400 font-mono">2020年起持续运营</span>
+            </div>
+            <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight flex items-center gap-3">
+              <a href={`/brands/${mainPush.id}/`} class="hover:text-(--primary) transition">
+                {mainPush.name} · 企业级专线与超高性价比之选
+              </a>
+            </h2>
+            <p class="text-xs md:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              {mainPush.description} 独家拥有<strong>致敬斯诺克147永久有效套餐（247GB不过期）</strong>与单月仅需8元左右的年付轻量套餐，实测香港节点峰值吞吐达 <strong>529 Mbps</strong>。
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded text-neutral-600 dark:text-neutral-300">
+                最低月折: <strong class="text-(--primary)">¥{mainPush.entryPrice}/月</strong>
+              </span>
+              <span class="bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded text-neutral-600 dark:text-neutral-300">
+                新人优惠码: <strong class="text-(--primary)">{mainPush.coupon}</strong>
+              </span>
+              <span class="bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded text-neutral-600 dark:text-neutral-300">
+                设备限制: <strong>不限设备同时在线</strong>
+              </span>
+            </div>
+          </div>
+
+          <div class="flex lg:flex-col items-center gap-3 w-full lg:w-48 flex-shrink-0">
+            <a
+              href={mainPush.affUrl}
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              class="w-full py-3 px-4 text-center text-sm font-bold rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 transition active:scale-95 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-1.5"
+            >
+              官网注册直达 ↗
+            </a>
+            <a
+              href={`/brands/${mainPush.id}/`}
+              class="w-full py-2.5 px-4 text-center text-xs font-bold rounded-xl btn-regular transition active:scale-95"
+            >
+              深度评测与测速大图
+            </a>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Interactive Multidimensional Filter Engine -->
+    <BrandFilter client:load airports={airports} />
+  </div>
+</MainGridLayout>

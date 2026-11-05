@@ -34,9 +34,9 @@ Unicode is supported. ☺
 
 This is example embed image in public directory:
 
-![Example image](/media/images/example.jpg)
+![Example image](/media/images/banner.svg)
 
-> Image source: [Source](https://www.pixiv.net/en/artworks/149301402)
+
 
 ```markdown
 ![image description](/media/images/<filename>)
@@ -178,7 +178,7 @@ Here's a "line block":
 
 and images can be specified like so:
 
-[//]: # '![example image]&#40;./demo-banner.webp "An exemplary image"&#41;'
+[//]: # '![example image]&#40;./banner.svg "An exemplary image"&#41;'
 
 Inline math equations go in like so: $\omega = d\phi / dt$. Display
 math should get its own line and be put in in double-dollarsigns:

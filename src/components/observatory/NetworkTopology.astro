@@ -1,0 +1,91 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	brandName: string;
+	lineType?: string;
+	protocols?: string[];
+}
+
+const {
+	brandName,
+	lineType = "IEPL 商业内网专线",
+	protocols = ["VLESS", "Shadowsocks"],
+} = Astro.props;
+---
+
+<div class="my-6 rounded-2xl bg-[#090d16] border border-cyan-500/20 shadow-xl overflow-hidden font-mono text-sm">
+  <div class="px-5 py-3.5 bg-[#0e1626] border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+      <span class="font-bold text-white tracking-wide">{brandName} · 专线跨境网络拓扑架构</span>
+    </div>
+    <div class="text-xs text-slate-400">
+      架构: <span class="text-cyan-300 font-semibold">{lineType}</span>
+    </div>
+  </div>
+
+  <div class="p-6">
+    <!-- Visual Topology Flow -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+      <!-- Step 1: User Client -->
+      <div class="bg-[#0f172a] rounded-xl p-4 border border-white/10 text-center flex flex-col items-center justify-center relative group hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2">
+          <Icon name="material-symbols:devices-outline" class="text-2xl" />
+        </div>
+        <div class="font-bold text-white font-sans text-sm">用户终端设备</div>
+        <div class="text-xs text-slate-400 font-sans mt-1">PC / 手机 / 软路由</div>
+        <div class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 mt-2 font-mono">
+          {protocols.join(" / ")}
+        </div>
+      </div>
+
+      <!-- Step 2: Domestic BGP Ingress -->
+      <div class="bg-[#0f172a] rounded-xl p-4 border border-white/10 text-center flex flex-col items-center justify-center relative group hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-2">
+          <Icon name="material-symbols:router-outline" class="text-2xl" />
+        </div>
+        <div class="font-bold text-white font-sans text-sm">国内中转入口</div>
+        <div class="text-xs text-slate-400 font-sans mt-1">上海 / 广州 BGP</div>
+        <div class="text-[11px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 mt-2 font-mono">
+          三网智能分流
+        </div>
+      </div>
+
+      <!-- Step 3: IEPL Tunnel -->
+      <div class="bg-[#111c33] rounded-xl p-4 border border-cyan-500/30 text-center flex flex-col items-center justify-center relative group shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center mb-2 animate-pulse">
+          <Icon name="material-symbols:cable" class="text-2xl" />
+        </div>
+        <div class="font-bold text-cyan-300 font-sans text-sm">跨境内网专线</div>
+        <div class="text-xs text-slate-300 font-sans mt-1">IEPL / IPLC 专线</div>
+        <div class="text-[11px] px-2 py-0.5 rounded bg-cyan-900/60 text-cyan-200 mt-2 font-mono">
+          物理隔离·零丢包
+        </div>
+      </div>
+
+      <!-- Step 4: Egress Services -->
+      <div class="bg-[#0f172a] rounded-xl p-4 border border-white/10 text-center flex flex-col items-center justify-center relative group hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center mb-2">
+          <Icon name="material-symbols:language" class="text-2xl" />
+        </div>
+        <div class="font-bold text-white font-sans text-sm">海外落地集群</div>
+        <div class="text-xs text-slate-400 font-sans mt-1">香港/日本/新加坡/美国</div>
+        <div class="text-[11px] px-2 py-0.5 rounded bg-purple-950 text-purple-300 mt-2 font-mono">
+          原生住宅IP解锁
+        </div>
+      </div>
+    </div>
+
+    <!-- Explanatory Details -->
+    <div class="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 font-sans">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span>传输特点：全程经过私有内网隧道跨越边界，不走公网国际出口，彻底避免运营商 QoS 降速与封锁。</span>
+      </div>
+      <div class="text-slate-500">
+        来源: 官方白皮书与骨干拓扑监测
+      </div>
+    </div>
+  </div>
+</div>

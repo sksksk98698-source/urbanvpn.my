@@ -1,0 +1,158 @@
+---
+import { Icon } from "astro-icon/components";
+import type { ServiceUnlock } from "@/data/airports";
+
+interface Props {
+	brandName: string;
+	unlock: ServiceUnlock;
+	unlockImages?: string[];
+}
+
+const { brandName, unlock, unlockImages = [] } = Astro.props;
+
+const services = [
+	{
+		id: "chatgpt",
+		name: "ChatGPT / OpenAI",
+		category: "AI 工具",
+		icon: "material-symbols:smart-toy-outline",
+		status: unlock.chatgpt,
+	},
+	{
+		id: "claude",
+		name: "Claude 3.5 Sonnet",
+		category: "AI 工具",
+		icon: "material-symbols:psychology-outline",
+		status: unlock.claude,
+	},
+	{
+		id: "gemini",
+		name: "Google Gemini",
+		category: "AI 工具",
+		icon: "material-symbols:neurology-outline",
+		status: unlock.gemini,
+	},
+	{
+		id: "netflix",
+		name: "Netflix 奈飞",
+		category: "海外流媒体",
+		icon: "material-symbols:movie-outline",
+		status: unlock.netflix,
+	},
+	{
+		id: "disney",
+		name: "Disney+ 迪士尼",
+		category: "海外流媒体",
+		icon: "material-symbols:play-circle-outline",
+		status: unlock.disney,
+	},
+	{
+		id: "youtube4k",
+		name: "YouTube 4K Premium",
+		category: "海外流媒体",
+		icon: "material-symbols:video-library-outline",
+		status: unlock.youtube4k,
+	},
+	{
+		id: "tiktok",
+		name: "TikTok 海外直播",
+		category: "海外社交",
+		icon: "material-symbols:cell-tower",
+		status: unlock.tiktok,
+	},
+	{
+		id: "spotify",
+		name: "Spotify 全区",
+		category: "音乐流媒体",
+		icon: "material-symbols:headphones-outline",
+		status: unlock.spotify,
+	},
+];
+
+const getStatusBadge = (status: string) => {
+	switch (status) {
+		case "stable":
+			return {
+				label: "稳定解锁",
+				badgeClass: "bg-emerald-950/80 text-emerald-400 border-emerald-500/30",
+				desc: "原生 IP 或专属重定向解锁",
+			};
+		case "conditional":
+			return {
+				label: "视节点而定",
+				badgeClass: "bg-amber-950/80 text-amber-400 border-amber-500/30",
+				desc: "部分主力节点支持，需手动选点",
+			};
+		case "unsupported":
+			return {
+				label: "暂不支持",
+				badgeClass: "bg-rose-950/80 text-rose-400 border-rose-500/30",
+				desc: "触发风控或未配置住宅落地",
+			};
+		default:
+			return {
+				label: "待核实",
+				badgeClass: "bg-slate-800 text-slate-400 border-slate-700",
+				desc: "暂无独立复测记录",
+			};
+	}
+};
+---
+
+<div class="my-6 rounded-2xl bg-[#090d16] border border-cyan-500/20 shadow-xl overflow-hidden font-mono text-sm">
+  <div class="px-5 py-3.5 bg-[#0e1626] border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <div class="w-3 h-3 rounded-full bg-cyan-400"></div>
+      <span class="font-bold text-white tracking-wide">{brandName} · AI 与流媒体解锁矩阵</span>
+    </div>
+    <div class="text-xs text-slate-400 flex items-center gap-3">
+      <span>测试工具: RegionRestrictionCheck</span>
+      <span class="text-cyan-400">原生 IP 验证</span>
+    </div>
+  </div>
+
+  <div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+    {services.map((s) => {
+      const badge = getStatusBadge(s.status);
+      return (
+        <div class="bg-[#0f172a]/70 rounded-xl p-3.5 border border-white/5 hover:border-cyan-500/30 transition flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-slate-400 font-sans">{s.category}</span>
+            <span class={`text-[11px] px-2 py-0.5 rounded border font-sans font-medium ${badge.badgeClass}`}>
+              {badge.label}
+            </span>
+          </div>
+          <div class="flex items-center gap-2 my-1 text-white font-semibold text-xs md:text-sm font-sans">
+            <Icon name={s.icon} class="text-cyan-400 text-lg flex-shrink-0" />
+            <span class="truncate">{s.name}</span>
+          </div>
+          <div class="text-[11px] text-slate-400 font-sans mt-1">
+            {badge.desc}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  {unlockImages.length > 0 && (
+    <div class="px-5 py-3.5 bg-[#0a0f1d] border-t border-white/5">
+      <div class="text-xs text-slate-400 mb-2 font-sans font-medium flex items-center gap-1.5">
+        <Icon name="material-symbols:verified-outline" class="text-emerald-400 text-sm" />
+        实测流媒体/TikTok直播/原生IP解锁截图（点击查看高清大图）：
+      </div>
+      <div class="flex flex-wrap gap-2.5">
+        {unlockImages.map((img, idx) => (
+          <a
+            href={img}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition"
+          >
+            <Icon name="material-symbols:image-outline" />
+            实测截图 {idx + 1}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</div>

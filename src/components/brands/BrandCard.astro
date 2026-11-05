@@ -1,0 +1,104 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Airport } from "@/data/airports";
+
+interface Props {
+	airport: Airport;
+}
+
+const { airport } = Astro.props;
+
+const rankBadgeColor =
+	airport.rank === 1
+		? "bg-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20"
+		: airport.rank <= 3
+			? "bg-cyan-500 text-slate-950 font-bold"
+			: airport.rank <= 10
+				? "bg-slate-700 text-white font-semibold"
+				: "bg-slate-800 text-slate-400";
+---
+
+<div class="card-base p-5 rounded-2xl flex flex-col justify-between hover:border-(--primary) transition relative group">
+  <!-- Header: Rank + Name + Badges -->
+  <div>
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div class="flex items-center gap-2.5">
+        <span class={`text-xs px-2.5 py-0.5 rounded-full ${rankBadgeColor}`}>
+          TOP {airport.rank}
+        </span>
+        <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight">
+          <a href={`/brands/${airport.id}/`} class="hover:text-(--primary) transition">
+            {airport.name}
+          </a>
+        </h3>
+        {airport.isMainPush && (
+          <span class="text-xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/30 font-medium">
+            年度主推
+          </span>
+        )}
+      </div>
+      <div class="text-right">
+        <span class="text-xs text-neutral-400 block font-mono">起步低至</span>
+        <span class="text-lg font-bold text-(--primary) font-mono">
+          ¥{airport.entryPrice}
+        </span>
+      </div>
+    </div>
+
+    <!-- Metadata Tags -->
+    <div class="flex flex-wrap gap-1.5 mb-3.5">
+      <span class="text-xs px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 font-medium">
+        {airport.lineType}
+      </span>
+      {airport.protocols.slice(0, 2).map((proto) => (
+        <span class="text-xs px-2 py-0.5 rounded bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/20 font-mono">
+          {proto}
+        </span>
+      ))}
+      <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        {airport.established}
+      </span>
+    </div>
+
+    <!-- Price note & Coupon -->
+    <div class="bg-black/5 dark:bg-white/5 rounded-xl p-2.5 mb-3.5 flex items-center justify-between text-xs font-mono">
+      <span class="text-neutral-500 dark:text-neutral-400">
+        计费口径: {airport.pricePeriod}
+      </span>
+      {airport.coupon && (
+        <span class="inline-flex items-center gap-1 font-bold text-(--primary) bg-(--primary)/10 px-2 py-0.5 rounded">
+          券码: {airport.coupon}
+        </span>
+      )}
+    </div>
+
+    <!-- Key Features List -->
+    <ul class="text-xs text-neutral-600 dark:text-neutral-300 space-y-1.5 mb-4">
+      {airport.features.slice(0, 3).map((f) => (
+        <li class="flex items-start gap-1.5">
+          <Icon name="material-symbols:check-circle-rounded" class="text-emerald-500 text-sm mt-0.5 flex-shrink-0" />
+          <span class="line-clamp-1">{f}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Actions -->
+  <div class="pt-3 border-t border-black/5 dark:border-white/10 flex items-center gap-2">
+    <a
+      href={`/brands/${airport.id}/`}
+      class="btn-regular flex-1 py-2 text-center text-xs font-bold rounded-lg active:scale-95 transition"
+    >
+      详细评测报告
+    </a>
+    <a
+      href={airport.affUrl}
+      target="_blank"
+      rel="nofollow sponsored noopener"
+      class="btn-card flex-1 py-2 text-center text-xs font-bold rounded-lg bg-(--primary) text-white hover:opacity-90 active:scale-95 transition shadow-md shadow-(--primary)/20 flex items-center justify-center gap-1"
+    >
+      官网注册直达
+      <Icon name="fa6-solid:arrow-up-right-from-square" class="text-[10px]" />
+    </a>
+  </div>
+</div>
