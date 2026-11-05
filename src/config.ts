@@ -52,6 +52,10 @@ export const navBarConfig: NavBarConfig = {
 			url: "/reviews/",
 		},
 		{
+			name: "跑路预警",
+			url: "/warnings/",
+		},
+		{
 			name: "客户端大全",
 			url: "/clients/",
 		},
