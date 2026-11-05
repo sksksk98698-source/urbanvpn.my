@@ -8,7 +8,6 @@ tags:
   - 高速机场
   - 2026机场推荐
 category: 机场评测
-image: /media/speedtest/光速云-节点测速实测.png
 draft: false
 ---
 

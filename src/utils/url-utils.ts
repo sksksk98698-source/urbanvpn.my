@@ -15,10 +15,24 @@ function joinUrl(...parts: string[]): string {
 	return joined.replace(/\/+/g, "/");
 }
 
+const GLOBAL_SHARED_PATHS = [
+	"/brands",
+	"/reviews",
+	"/warnings",
+	"/clients",
+	"/topics",
+	"rss.xml",
+	"/rss.xml",
+];
+
 export function url(path: string, lang?: string): string {
 	const activeLang = lang ? lang.replace("_", "-") : CONFIG_BASE_LANG;
 
-	const prefix = activeLang === CONFIG_BASE_LANG ? "" : `/${activeLang}`;
+	const isGlobalShared = GLOBAL_SHARED_PATHS.some(
+		(p) => path.startsWith(p) || path === p,
+	);
+	const prefix =
+		activeLang === CONFIG_BASE_LANG || isGlobalShared ? "" : `/${activeLang}`;
 
 	return joinUrl("", import.meta.env.BASE_URL, `${prefix}${path}`);
 }
@@ -60,7 +74,7 @@ export function getDir(path: string): string {
 export const siteUrl = (path = ""): string => {
 	if (path.startsWith("http://") || path.startsWith("https://")) return path;
 
-	const site = import.meta.env.SITE;
+	const site = import.meta.env.SITE || "https://urbanvpn.my";
 	const base = import.meta.env.BASE_URL || "/";
 
 	const cleanSite = site.endsWith("/") ? site.slice(0, -1) : site;

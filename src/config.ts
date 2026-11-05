@@ -7,6 +7,7 @@ import type {
 	NavBarConfig,
 	ProfileConfig,
 	SiteConfig,
+	VerificationConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
@@ -112,4 +113,13 @@ export const analyticsConfig: AnalyticsConfig = {
 export const deployConfig: DeployConfig = {
 	siteUrl: "https://urbanvpn.my",
 	baseUrl: "/",
+};
+
+// 搜索引擎站长平台验证配置 (Google, Bing, 百度, 神马)
+// 获得各平台分配的验证码后直接填入对应字段，将自动编译输出至全站公共 <head> 中
+export const verificationConfig: VerificationConfig = {
+	google: "", // 例如: "google-site-verification=abc..."
+	bing: "", // 例如: "msvalidate.01 对应的 hex code"
+	baidu: "", // 例如: "baidu-site-verification 对应的 code"
+	shenma: "", // 例如: "shenma-site-verification 对应的 code"
 };

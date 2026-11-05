@@ -158,6 +158,13 @@ export type AnalyticsConfig = {
 	umami?: null;
 };
 
+export type VerificationConfig = {
+	google?: string;
+	bing?: string;
+	baidu?: string;
+	shenma?: string;
+};
+
 export type DeployConfig = {
 	siteUrl: string;
 	baseUrl: string;

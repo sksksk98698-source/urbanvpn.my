@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { siteUrl } from "@utils/url-utils";
-import { profileConfig, siteConfig } from "@/config";
+import { profileConfig, siteConfig, verificationConfig } from "@/config";
 
 interface Props {
 	title?: string;
@@ -26,7 +26,12 @@ if (title) {
 	pageTitle = `${siteConfig.title} - ${siteConfig.subtitle}`;
 }
 
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl()).href;
+// 确保 canonical 为标准 HTTPS 绝对路径，且遵从尾斜杠策略
+let cleanPath = Astro.url.pathname;
+if (!cleanPath.endsWith("/") && !cleanPath.includes(".")) {
+	cleanPath += "/";
+}
+const canonicalUrl = new URL(cleanPath, siteUrl()).href;
 const slug = Astro.url.pathname.split("/").filter(Boolean).pop();
 
 interface PageData {
@@ -83,6 +88,7 @@ if (!description) {
 	description = pageData.description || pageTitle;
 }
 
+// 全站基础 Schema：WebSite + Organization
 const websiteSchema = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
@@ -91,6 +97,23 @@ const websiteSchema = {
 	description: siteConfig.subtitle,
 	inLanguage: lang.replace("_", "-"),
 };
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	name: siteConfig.title,
+	url: siteUrl(),
+	logo: siteUrl("assets/images/avatar.svg"),
+	description: siteConfig.subtitle,
+	sameAs: [
+		siteUrl("/brands/"),
+		siteUrl("/reviews/"),
+		siteUrl("/topics/"),
+		siteUrl("/warnings/"),
+	],
+};
+
+const siteSchemas = [websiteSchema, organizationSchema];
 ---
 
 <title>{pageTitle}</title>
@@ -99,6 +122,12 @@ const websiteSchema = {
 <meta name="author" content={profileConfig.name} />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <link rel="canonical" href={canonicalUrl} />
+
+<!-- 搜索引擎站长平台安全验证预留 (Google, Bing, 百度, 神马) -->
+{verificationConfig.google && <meta name="google-site-verification" content={verificationConfig.google} />}
+{verificationConfig.bing && <meta name="msvalidate.01" content={verificationConfig.bing} />}
+{verificationConfig.baidu && <meta name="baidu-site-verification" content={verificationConfig.baidu} />}
+{verificationConfig.shenma && <meta name="shenma-site-verification" content={verificationConfig.shenma} />}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:site_name" content={siteConfig.title} />
@@ -131,5 +160,5 @@ const websiteSchema = {
 
 <!-- Structured Data -->
 {!setOGTypeArticle && (
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(siteSchemas)} />
 )}
